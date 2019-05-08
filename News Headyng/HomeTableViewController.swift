@@ -97,7 +97,15 @@ class HomeTableViewController: UITableViewController {
         return cell
     }
     
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let url = allNews?.results[indexPath.row].url{
+            let config = SFSafariViewController.Configuration()
+            config.barCollapsingEnabled = true
+            config.entersReaderIfAvailable = true
+            let svc = SFSafariViewController(url: URL(string: url)!, configuration: config)
+            present(svc, animated: true)
+        }
+    }
     
     
 
