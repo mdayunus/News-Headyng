@@ -67,8 +67,30 @@ class HomeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellID, for: indexPath)
-
-        // Configure the cell...
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.text = allNews?.results[indexPath.row].title
+        cell.detailTextLabel?.text = allNews?.results[indexPath.row].byline
+        if (allNews?.results[indexPath.row].multimedia.count)! > 0{
+            let nsString = (allNews?.results[indexPath.row].multimedia[0].url)! as NSString
+            if cache.object(forKey: nsString) != nil{
+                let data = (cache.object(forKey: nsString))! as Data
+                cell.imageView?.image = UIImage(data: data)
+            }else{
+                let url = allNews?.results[indexPath.row].multimedia[0].url
+                let t = URLSession.shared.dataTask(with: URL(string: url!)!) { (data, response, error) in
+                    if error != nil{
+                        print(error!)
+                        //
+                    }else{
+                        DispatchQueue.main.async { [weak self] in
+                            self?.cache.setObject(data! as NSData, forKey: nsString)
+                            tableView.reloadRows(at: [indexPath], with: .fade)
+                        }
+                    }
+                }
+                t.resume()
+            }
+        }
 
         return cell
     }
