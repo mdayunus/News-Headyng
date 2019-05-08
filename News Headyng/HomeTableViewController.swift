@@ -20,6 +20,7 @@ class HomeTableViewController: UITableViewController {
     @IBOutlet weak var refreshControlOutlet: UIRefreshControl!
     
     @IBAction func refreshControlAction(_ sender: UIRefreshControl) {
+        getAllNewsFrom(url: Constants.newsURL)
     }
     
     
@@ -33,7 +34,10 @@ class HomeTableViewController: UITableViewController {
             let task = URLSession.shared.dataTask(with: youareL) { [weak self] (data, response, error) in
                 if error != nil{
                     print(error!)
-                    //
+                    let ac = UIAlertController(title: "Error", message: "can not complete season", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "dismiss", style: .destructive)
+                    ac.addAction(action)
+                    self?.present(ac, animated: true)
                 }else{
                     if let d = data{
                         do{
@@ -44,11 +48,18 @@ class HomeTableViewController: UITableViewController {
                             }
                         }catch{
                             print(error)
-                            //
+                            let ac = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "dismiss", style: .destructive)
+                            ac.addAction(action)
+                            self?.present(ac, animated: true)
                         }
                     }else{
                         print("d is not equal to data")
                         //
+                        let ac = UIAlertController(title: "Error", message: "can not convert data from url to specified body type", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "dismiss", style: .destructive)
+                        ac.addAction(action)
+                        self?.present(ac, animated: true)
                     }
                 }
             }
@@ -56,6 +67,10 @@ class HomeTableViewController: UITableViewController {
         }else{
             print("string provided can not be converted to URL")
             //
+            let ac = UIAlertController(title: "Error", message: "string cannot be converted into url", preferredStyle: .alert)
+            let action = UIAlertAction(title: "dismiss", style: .destructive)
+            ac.addAction(action)
+            present(ac, animated: true)
         }
         
     }
