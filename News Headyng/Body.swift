@@ -30,7 +30,7 @@ struct News: Codable {
     var per_facet: [String]
     var published_date: String
     var section: String
-    var short_url: String
+    var short_url: String?
     var subsection: String
     var title: String
     var updated_date: String

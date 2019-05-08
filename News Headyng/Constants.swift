@@ -10,5 +10,5 @@ import Foundation
 struct Constants {
     static var cellID = "cell"
     static var key = "85l01ds36GzAf05TYoPkjATZx76UuuU8"
-    static var newsURL = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key="
+    static var newsURL = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=85l01ds36GzAf05TYoPkjATZx76UuuU8"
 }

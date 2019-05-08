@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class HomeTableViewController: UITableViewController {
     
@@ -24,6 +25,7 @@ class HomeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getAllNewsFrom(url: Constants.newsURL)
     }
     
     func getAllNewsFrom(url: String){
@@ -94,6 +96,8 @@ class HomeTableViewController: UITableViewController {
 
         return cell
     }
+    
+    
     
     
 
